@@ -8,17 +8,27 @@
 
 
     <bean id="myClient" class="ua.epam.spring.core.beans.MyClient">
-        <constructor-arg value="1" />
-        <constructor-arg value="John Smith"/>
+        <constructor-arg type = "java.lang.String" value="1" />
+        <constructor-arg type = "java.lang.String" value="John Smith "/>
+        <!--<constructor-arg type = "java.lang.String" value="2" />-->
+        <!--<constructor-arg type = "java.lang.String" value="Valentina Pavlovna"/>-->
     </bean>
 
     <bean id="eventLogger" class="ua.epam.spring.core.loggers.ConsoleEventLogger"/>
 
-
     <bean id="app" class="ua.epam.spring.core.App">
         <constructor-arg ref="myClient"/>
         <constructor-arg ref="eventLogger"/>
+        <constructor-arg ref="event"/>
     </bean>
 
+    <bean id="event" scope="prototype" class="ua.epam.spring.core.beans.Event">
+         <constructor-arg>
+              <bean class="java.util.Date"/>
+         </constructor-arg>
+        <constructor-arg ref="dateFormat"/>
+   </bean>
+
+    <bean id="dateFormat" class="java.text.DateFormat" factory-method="getDateTimeInstance"/>
 
 </beans>

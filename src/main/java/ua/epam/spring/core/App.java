@@ -2,6 +2,7 @@ package ua.epam.spring.core;
 
 
 import org.springframework.context.ApplicationContext;
+import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import ua.epam.spring.core.beans.MyClient;
 import ua.epam.spring.core.beans.Event;
@@ -29,17 +30,21 @@ public class App {
 //		app.eventLogger = new ConsoleEventLogger();
 		//app.logEvent("Some event for user 1");
 
-		ApplicationContext context = new ClassPathXmlApplicationContext("spring.xml");
-		//Resource res = new ClassPathResource("/resources/spring.xml");
-		App app = (App) context.getBean("app");
+		//ApplicationContext context = new ClassPathXmlApplicationContext("spring.xml");
+		ConfigurableApplicationContext cnfgComtext = new ClassPathXmlApplicationContext("spring.xml");
 
-		app.logEvent("Hello World from user 1!");
+
+		//Resource res = new ClassPathResource("/resources/spring.xml");
+		App app = (App) cnfgComtext.getBean("app");
+		for (int i = 0; i < 5; i++) {
+			app.logEvent("Hello World from user 1!");
+		}
+		// Instead of context.close() use the hook:
+		cnfgComtext.registerShutdownHook();
+
+	//	app.logEvent("Hello World from user 1!");
 	}
 
-//	private  void logEvent(String msg){
-//		String message = msg.replaceAll(myClient.getId(), myClient.getFullName());
-//		iEventLogger.logEvent(message);
-//	}
 
 	private  void logEvent(String msg){
 		//String message = msg.replaceAll(myClient.getId(), myClient.getFullName());

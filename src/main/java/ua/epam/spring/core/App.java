@@ -31,16 +31,16 @@ public class App {
 		//app.logEvent("Some event for user 1");
 
 		//ApplicationContext context = new ClassPathXmlApplicationContext("spring.xml");
-		ConfigurableApplicationContext cnfgComtext = new ClassPathXmlApplicationContext("spring.xml");
+		ConfigurableApplicationContext cnfgContext = new ClassPathXmlApplicationContext("loggers.xml", "spring.xml");
 
 
 		//Resource res = new ClassPathResource("/resources/spring.xml");
-		App app = (App) cnfgComtext.getBean("app");
+		App app = (App) cnfgContext.getBean("app");
 		for (int i = 0; i < 5; i++) {
 			app.logEvent("Hello World from user 1!");
 		}
 		// Instead of context.close() use the hook:
-		cnfgComtext.registerShutdownHook();
+		cnfgContext.registerShutdownHook();
 
 	//	app.logEvent("Hello World from user 1!");
 	}
